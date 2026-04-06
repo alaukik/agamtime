@@ -10,13 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-
-/* ── RESET ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:#080808;font-family:'Syne',sans-serif;-webkit-font-smoothing:antialiased}
-
 :root{
-  --green:#00C781;--green-dim:rgba(0,199,129,0.12);--green-glow:rgba(0,199,129,0.2);
+  --green:#00C781;--green-dim:rgba(0,199,129,0.12);
   --red:#FF5C5C;--red-dim:rgba(255,92,92,0.12);
   --amber:#FFB347;
   --bg:#080808;--s1:#111;--s2:#181818;--s3:#222;
@@ -24,218 +21,104 @@ html,body{height:100%;overflow:hidden;background:#080808;font-family:'Syne',sans
   --text:#F0F0F0;--muted:#777;--dim:#444;
   --mono:'DM Mono',monospace;
 }
-
-/* ── SCREENS ── */
-.screen{
-  position:fixed;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;padding:32px 24px;
-  opacity:0;pointer-events:none;transition:opacity 0.35s ease;overflow-y:auto;
-}
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;opacity:0;pointer-events:none;transition:opacity 0.35s ease;overflow-y:auto}
 .screen.active{opacity:1;pointer-events:all}
-
-/* ── LOADING ── */
+/* LOADING */
 #s-loading{background:var(--bg);gap:20px}
-.spinner{
-  width:34px;height:34px;border:2px solid var(--border2);
-  border-top-color:var(--green);border-radius:50%;
-  animation:spin 0.7s linear infinite;
-}
+.spinner{width:34px;height:34px;border:2px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin 0.7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-text{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:3px}
-
-/* ── LOGIN ── */
+/* LOGIN */
 #s-login{background:var(--bg)}
-.login-glow{
-  position:fixed;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(0,199,129,0.09),transparent);
-}
+.login-glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(0,199,129,0.09),transparent)}
 .login-content{position:relative;z-index:1;width:100%;max-width:320px;display:flex;flex-direction:column;align-items:center}
-
-.login-mark{
-  width:76px;height:76px;border-radius:20px;
-  background:var(--s1);border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:24px;position:relative;overflow:hidden;
-}
-.login-mark::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at 35% 30%,rgba(0,199,129,0.18),transparent 65%);
-}
-
+.login-mark{width:76px;height:76px;border-radius:20px;background:var(--s1);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative;overflow:hidden}
+.login-mark::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 35% 30%,rgba(0,199,129,0.18),transparent 65%)}
 .login-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--green);text-transform:uppercase;margin-bottom:8px}
 .login-title{font-size:34px;font-weight:800;color:var(--text);letter-spacing:-0.5px;text-align:center;margin-bottom:10px;line-height:1.05}
 .login-sub{font-size:13px;color:var(--muted);text-align:center;line-height:1.65;margin-bottom:40px;font-weight:400;max-width:260px}
 .google-btn-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:14px}
 #google-signin-btn{width:100%}
 .login-fine{font-family:var(--mono);font-size:10px;color:var(--dim);text-align:center;line-height:1.7}
-
-/* ── MAIN ── */
-#s-main{
-  justify-content:flex-start;
-  padding-top:max(env(safe-area-inset-top,0px),28px);
-  padding-bottom:max(env(safe-area-inset-bottom,0px),24px);
-}
+/* NOQR */
+#s-noqr{background:var(--bg);gap:28px}
+.noqr-icon{opacity:0.9}
+.noqr-title{font-size:24px;font-weight:800;color:var(--text);letter-spacing:-0.3px}
+.noqr-sub{font-size:14px;color:var(--muted);text-align:center;line-height:1.7;max-width:260px;font-family:var(--mono)}
+/* MAIN */
+#s-main{justify-content:flex-start;padding-top:max(env(safe-area-inset-top,0px),28px);padding-bottom:max(env(safe-area-inset-bottom,0px),24px)}
 .main-inner{width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center}
-
-/* Header */
 .header{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
 .header-brand{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;color:var(--green);text-transform:uppercase}
-.avatar{
-  width:34px;height:34px;border-radius:50%;
-  background:var(--s2);border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;color:var(--green);
-  cursor:pointer;overflow:hidden;
-}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--s2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--green);cursor:pointer;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
-
-/* Greeting */
 .greeting{width:100%;margin-bottom:16px}
 .greeting-hi{font-size:13px;color:var(--muted);font-weight:400}
 .greeting-name{font-size:26px;font-weight:700;color:var(--text);letter-spacing:-0.3px;line-height:1.2}
-
-/* Block screen — no QR */
-#s-noqr{background:var(--bg);gap:0}
-.noqr-icon{font-size:56px;margin-bottom:28px;opacity:0.9}
-.noqr-title{font-size:24px;font-weight:800;color:var(--text);margin-bottom:12px;letter-spacing:-0.3px}
-.noqr-sub{font-size:14px;color:var(--muted);text-align:center;line-height:1.7;max-width:260px;font-family:var(--mono)}
-
-/* Location bar */
-.loc-bar{
-  width:100%;background:var(--s1);border:1px solid var(--border);
-  border-radius:14px;padding:13px 16px;
-  display:flex;align-items:center;gap:10px;margin-bottom:32px;
-  transition:border-color 0.3s,background 0.3s;
-}
+/* LOC BAR */
+.loc-bar{width:100%;background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:13px 16px;display:flex;align-items:center;gap:10px;margin-bottom:32px;transition:border-color 0.3s,background 0.3s}
 .loc-bar.verified{border-color:rgba(0,199,129,0.28);background:rgba(0,199,129,0.05)}
 .loc-bar.error{border-color:rgba(255,92,92,0.28);background:rgba(255,92,92,0.04)}
 .loc-bar.detecting{border-color:rgba(255,179,71,0.28);background:rgba(255,179,71,0.04)}
-
 .loc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;transition:background 0.3s}
 .loc-dot.green{background:var(--green);box-shadow:0 0 0 3px rgba(0,199,129,0.18)}
 .loc-dot.red{background:var(--red)}
 .loc-dot.amber{background:var(--amber);animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.25}}
-
 .loc-info{flex:1;min-width:0}
 .loc-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .loc-sub{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px}
-
-/* ── LOG TIME BUTTON ── */
+/* BUTTON */
 .btn-zone{width:100%;display:flex;justify-content:center;margin-bottom:32px}
-.log-btn{
-  width:184px;height:184px;border-radius:50%;
-  border:none;cursor:pointer;outline:none;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:5px;position:relative;
-  transition:transform 0.12s ease;
-}
+.log-btn{width:184px;height:184px;border-radius:50%;border:none;cursor:pointer;outline:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;position:relative;transition:transform 0.12s ease}
 .log-btn:active:not(:disabled){transform:scale(0.93)}
 .log-btn:disabled{cursor:not-allowed}
-
 .log-btn::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:1.5px solid;transition:border-color 0.3s}
 .log-btn::after{content:'';position:absolute;inset:-14px;border-radius:50%;border:1px solid;opacity:0.28;transition:border-color 0.3s}
-
 .log-btn.checkin{background:rgba(0,199,129,0.1)}
 .log-btn.checkout{background:rgba(255,92,92,0.1)}
 .log-btn.loading,.log-btn.blocked,.log-btn.cooldown{background:var(--s2)}
-
-.log-btn.checkin::before{border-color:var(--green)}
-.log-btn.checkout::before{border-color:var(--red)}
-.log-btn.cooldown::before{border-color:var(--amber)}
-.log-btn.loading::before,.log-btn.blocked::before{border-color:var(--border2)}
-
-.log-btn.checkin::after{border-color:var(--green)}
-.log-btn.checkout::after{border-color:var(--red)}
-.log-btn.cooldown::after{border-color:var(--amber)}
-.log-btn.loading::after,.log-btn.blocked::after{border-color:var(--border);opacity:0.12}
-
+.log-btn.checkin::before{border-color:var(--green)}.log-btn.checkout::before{border-color:var(--red)}.log-btn.cooldown::before{border-color:var(--amber)}.log-btn.loading::before,.log-btn.blocked::before{border-color:var(--border2)}
+.log-btn.checkin::after{border-color:var(--green)}.log-btn.checkout::after{border-color:var(--red)}.log-btn.cooldown::after{border-color:var(--amber)}.log-btn.loading::after,.log-btn.blocked::after{border-color:var(--border);opacity:0.12}
 .btn-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center}
 .btn-label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase}
-.log-btn.checkin .btn-label{color:var(--green)}
-.log-btn.checkout .btn-label{color:var(--red)}
-.log-btn.cooldown .btn-label{color:var(--amber)}
-.log-btn.loading .btn-label,.log-btn.blocked .btn-label{color:var(--dim)}
+.log-btn.checkin .btn-label{color:var(--green)}.log-btn.checkout .btn-label{color:var(--red)}.log-btn.cooldown .btn-label{color:var(--amber)}.log-btn.loading .btn-label,.log-btn.blocked .btn-label{color:var(--dim)}
 .btn-sub{font-family:var(--mono);font-size:10px;color:var(--dim)}
-
-/* ── SESSION HISTORY ── */
+/* HISTORY */
 .history{width:100%;padding-bottom:32px}
 .history-label{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--dim);text-transform:uppercase;margin-bottom:12px}
 .sessions{display:flex;flex-direction:column;gap:10px}
 .history-empty{text-align:center;padding:28px 0;font-size:12px;color:var(--dim);font-family:var(--mono)}
-
-.session-card{
-  background:var(--s1);border:1px solid var(--border);
-  border-radius:14px;padding:14px 16px;
-  display:flex;flex-direction:column;gap:10px;
-  animation:fadeUp 0.3s ease both;
-}
+.session-card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;animation:fadeUp 0.3s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .session-card.active-session{border-color:rgba(0,199,129,0.22);background:rgba(0,199,129,0.04)}
-
 .session-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .session-location{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
-
 .session-badge{font-family:var(--mono);font-size:9px;padding:3px 8px;border-radius:20px;flex-shrink:0;letter-spacing:0.5px;text-transform:uppercase}
-.badge-active{background:rgba(0,199,129,0.15);color:var(--green)}
-.badge-manual{background:var(--s3);color:var(--muted)}
-.badge-auto-9pm{background:rgba(255,179,71,0.12);color:var(--amber)}
-.badge-auto-new{background:rgba(255,92,92,0.12);color:var(--red)}
-
+.badge-active{background:rgba(0,199,129,0.15);color:var(--green)}.badge-manual{background:var(--s3);color:var(--muted)}.badge-auto-9pm{background:rgba(255,179,71,0.12);color:var(--amber)}.badge-auto-new{background:rgba(255,92,92,0.12);color:var(--red)}
 .session-times{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .time-block{display:flex;flex-direction:column;gap:3px}
 .time-label{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:1px;text-transform:uppercase}
 .time-val{font-size:12px;font-weight:500;color:var(--text);font-family:var(--mono)}
-.time-val.green{color:var(--green)}
-.time-val.muted{color:var(--muted)}
-
-.session-dur{
-  display:flex;align-items:center;gap:6px;
-  padding-top:8px;border-top:1px solid var(--border);
-}
+.time-val.green{color:var(--green)}.time-val.muted{color:var(--muted)}
+.session-dur{display:flex;align-items:center;gap:6px;padding-top:8px;border-top:1px solid var(--border)}
 .dur-text{font-family:var(--mono);font-size:11px;color:var(--muted)}
-
-/* ── SUCCESS ── */
+/* SUCCESS */
 #s-success{gap:0}
-.success-ring{
-  width:92px;height:92px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:24px;position:relative;
-}
+.success-ring{width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative}
 .success-ring::before{content:'';position:absolute;inset:-10px;border-radius:50%;border:1px solid;opacity:0.22}
-.success-ring.in{background:rgba(0,199,129,0.1);border:2px solid var(--green)}
-.success-ring.out{background:rgba(255,92,92,0.1);border:2px solid var(--red)}
-.success-ring.in::before{border-color:var(--green)}
-.success-ring.out::before{border-color:var(--red)}
-
+.success-ring.in{background:rgba(0,199,129,0.1);border:2px solid var(--green)}.success-ring.out{background:rgba(255,92,92,0.1);border:2px solid var(--red)}
+.success-ring.in::before{border-color:var(--green)}.success-ring.out::before{border-color:var(--red)}
 .success-status{font-size:30px;font-weight:800;color:var(--text);margin-bottom:6px;letter-spacing:-0.5px}
-.success-loc{font-size:16px;font-weight:600;margin-bottom:6px}
-.success-loc.in{color:var(--green)}
-.success-loc.out{color:var(--red)}
+.success-loc{font-size:16px;font-weight:600;margin-bottom:6px}.success-loc.in{color:var(--green)}.success-loc.out{color:var(--red)}
 .success-time{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:4px}
 .success-email{font-family:var(--mono);font-size:11px;color:var(--dim);margin-bottom:32px}
 .success-note{display:flex;align-items:center;gap:7px;margin-bottom:36px;font-family:var(--mono);font-size:11px;color:var(--green)}
 .check-dot{width:16px;height:16px;border-radius:50%;background:rgba(0,199,129,0.15);border:1px solid var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-
-.back-btn{
-  background:var(--s1);border:1px solid var(--border2);
-  border-radius:12px;padding:14px 44px;
-  color:var(--text);font-family:'Syne',sans-serif;font-size:14px;font-weight:600;
-  cursor:pointer;
-}
+.back-btn{background:var(--s1);border:1px solid var(--border2);border-radius:12px;padding:14px 44px;color:var(--text);font-family:'Syne',sans-serif;font-size:14px;font-weight:600;cursor:pointer}
 .back-btn:active{background:var(--s2)}
-
-/* ── TOAST ── */
-#toast{
-  position:fixed;bottom:32px;left:50%;
-  transform:translateX(-50%) translateY(14px);
-  background:var(--s2);border:1px solid var(--border2);
-  border-radius:10px;padding:10px 20px;
-  font-family:var(--mono);font-size:12px;color:var(--text);
-  white-space:nowrap;opacity:0;pointer-events:none;
-  transition:opacity 0.25s,transform 0.25s;
-  z-index:999;max-width:88vw;text-align:center;
-}
+/* TOAST */
+#toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:10px 20px;font-family:var(--mono);font-size:12px;color:var(--text);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;z-index:999;max-width:88vw;text-align:center}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast.err{border-color:rgba(255,92,92,0.4);color:var(--red)}
 #toast.ok{border-color:rgba(0,199,129,0.4);color:var(--green)}
@@ -258,8 +141,6 @@ html,body{height:100%;overflow:hidden;background:#080808;font-family:'Syne',sans
         <circle cx="19" cy="19" r="14" stroke="#00C781" stroke-width="1.8"/>
         <path d="M19 12v7l4.5 2.5" stroke="#00C781" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         <circle cx="19" cy="19" r="2.2" fill="#00C781"/>
-        <circle cx="29" cy="27" r="5" fill="#080808" stroke="#00C781" stroke-width="1.5"/>
-        <path d="M29 24.5v2.5l1.5 1" stroke="#00C781" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
     </div>
     <div class="login-eyebrow">Attendance Tracking</div>
@@ -272,7 +153,7 @@ html,body{height:100%;overflow:hidden;background:#080808;font-family:'Syne',sans
   </div>
 </div>
 
-<!-- NO QR BLOCK SCREEN -->
+<!-- NO QR BLOCK -->
 <div class="screen" id="s-noqr">
   <div class="noqr-icon">
     <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
@@ -295,45 +176,36 @@ html,body{height:100%;overflow:hidden;background:#080808;font-family:'Syne',sans
 <!-- MAIN -->
 <div class="screen" id="s-main">
   <div class="main-inner">
-
     <div class="header">
       <div class="header-brand">AGAMTime</div>
       <div class="avatar" id="userAvatar" onclick="confirmSignOut()">
         <span id="userInitials">?</span>
       </div>
     </div>
-
     <div class="greeting">
       <div class="greeting-hi">Hello,</div>
       <div class="greeting-name" id="userName">—</div>
     </div>
-
-    <!-- Location bar -->
     <div class="loc-bar detecting" id="locBar">
       <div class="loc-dot amber" id="locDot"></div>
       <div class="loc-info">
         <div class="loc-name" id="locName">Detecting location…</div>
-        <div class="loc-sub"  id="locSub">Please wait</div>
+        <div class="loc-sub" id="locSub">Please wait</div>
       </div>
     </div>
-
-    <!-- The Button -->
     <div class="btn-zone">
       <button class="log-btn loading" id="logBtn" onclick="handleTap()" disabled>
         <div class="btn-icon" id="btnIcon"><div class="spinner"></div></div>
         <div class="btn-label" id="btnLabel">—</div>
-        <div class="btn-sub"   id="btnSub">loading</div>
+        <div class="btn-sub" id="btnSub">loading</div>
       </button>
     </div>
-
-    <!-- Sessions -->
     <div class="history">
       <div class="history-label">Recent Sessions</div>
       <div class="sessions" id="sessionList">
         <div class="history-empty">Loading…</div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -341,9 +213,9 @@ html,body{height:100%;overflow:hidden;background:#080808;font-family:'Syne',sans
 <div class="screen" id="s-success">
   <div class="success-ring" id="successRing"></div>
   <div class="success-status" id="successStatus">Checked In</div>
-  <div class="success-loc"    id="successLoc">—</div>
-  <div class="success-time"   id="successTime">—</div>
-  <div class="success-email"  id="successEmail">—</div>
+  <div class="success-loc" id="successLoc">—</div>
+  <div class="success-time" id="successTime">—</div>
+  <div class="success-email" id="successEmail">—</div>
   <div class="success-note">
     <div class="check-dot">
       <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
@@ -355,39 +227,38 @@ html,body{height:100%;overflow:hidden;background:#080808;font-family:'Syne',sans
   <button class="back-btn" onclick="goToMain()">Back to Home</button>
 </div>
 
-<!-- TOAST -->
 <div id="toast"></div>
 
 <script>
 // ═══════════════════════════════════════════
-// CONFIG
+// CONFIG — only Apps Script URL here
+// No hardcoded tenant — loc drives everything
 // ═══════════════════════════════════════════
 var CLIENT_ID  = '485231703930-gn3gj5kqq51on86h0hl0dcja3lpup5fg.apps.googleusercontent.com';
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLcI_qA_BYTc0gOPnocJ0eh-wFk46c12Tqzp88cbMVOTKyke_HQPLgVqIilWr30w_b/exec';
 var COOLDOWN   = 30;
-var TENANT     = new URLSearchParams(window.location.search).get('tenant') || 'wgt';
 
 // ═══════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════
 var S = {
-  user:           null,   // { email, name, picture, initials }
-  locations:      [],     // from Locations sheet
-  qrLocId:        null,   // ?loc= from URL
-  selectedLoc:    null,   // { locationId, locationName, lat, lng, radius }
-  gps:            null,   // { lat, lng }
-  gpsVerified:    false,
-  nextAction:     'CHECK-IN',
-  lastLocId:      null,
-  cooldownEnd:    0,
-  btnReady:       false,
-  cdTimer:        null
+  user:         null,
+  qrLocId:      null,   // ?loc= from URL — this is all we need
+  selectedLoc:  null,   // { locationId, locationName, lat, lng, radius }
+  gps:          null,
+  gpsVerified:  false,
+  nextAction:   'CHECK-IN',
+  lastLocId:    null,
+  cooldownEnd:  0,
+  btnReady:     false,
+  cdTimer:      null
 };
 
 // ═══════════════════════════════════════════
 // BOOT
 // ═══════════════════════════════════════════
 window.onload = function() {
+  // Read loc from URL — this is the only URL param we need
   S.qrLocId = new URLSearchParams(window.location.search).get('loc');
 
   try {
@@ -437,42 +308,55 @@ function confirmSignOut() {
 // MAIN INIT
 // ═══════════════════════════════════════════
 function initMain() {
-  showScreen('main');
-
-  // User UI
-  document.getElementById('userName').textContent    = S.user.name.split(' ')[0];
-  document.getElementById('userInitials').textContent = S.user.initials;
-  if (S.user.picture) {
-    document.getElementById('userAvatar').innerHTML =
-      '<img src="' + esc(S.user.picture) + '" alt="">';
+  // Block if no QR scanned
+  if (!S.qrLocId) {
+    showScreen('noqr');
+    return;
   }
 
-  // Load in parallel then start location flow
-  Promise.all([ loadLocations(), loadLastStatus() ])
-    .then(startLocationFlow);
+  showScreen('main');
+
+  el('userName').textContent    = S.user.name.split(' ')[0];
+  el('userInitials').textContent = S.user.initials;
+  if (S.user.picture) {
+    el('userAvatar').innerHTML = '<img src="' + esc(S.user.picture) + '" alt="">';
+  }
+
+  // Load location details + last status in parallel
+  Promise.all([
+    loadLocationDetails(),
+    loadLastStatus()
+  ]).then(startLocationFlow);
 
   loadSessions();
 }
 
 // ═══════════════════════════════════════════
-// LOAD LOCATIONS
+// LOAD LOCATION DETAILS
+// Backend auto-detects tenant from loc
 // ═══════════════════════════════════════════
-function loadLocations() {
-  return api('getLocations', { tenant: TENANT }).then(function(d) {
-    if (d.success && d.locations) {
-      S.locations = d.locations;
+function loadLocationDetails() {
+  return api('getLocations', { loc: S.qrLocId }).then(function(d) {
+    if (d.success && d.locations && d.locations.length > 0) {
+      var loc = d.locations[0];
+      S.selectedLoc = loc;
+    } else {
+      // Location not found in any tenant — show no-QR screen
+      showScreen('noqr');
     }
-  }).catch(function() { toast('Could not load centers.', 'err'); });
+  }).catch(function() {
+    toast('Could not load location details.', 'err');
+  });
 }
 
 // ═══════════════════════════════════════════
 // LOAD LAST STATUS
 // ═══════════════════════════════════════════
 function loadLastStatus() {
-  return api('lastStatus', { email: S.user.email, tenant: TENANT }).then(function(d) {
+  return api('lastStatus', { email: S.user.email, loc: S.qrLocId }).then(function(d) {
     if (d.success) {
-      S.nextAction  = d.nextAction || 'CHECK-IN';
-      S.lastLocId   = d.lastLocationId || null;
+      S.nextAction = d.nextAction || 'CHECK-IN';
+      S.lastLocId  = d.lastLocationId || null;
       if (d.cooldownRemaining > 0) {
         S.cooldownEnd = Date.now() + d.cooldownRemaining * 1000;
       }
@@ -484,26 +368,17 @@ function loadLastStatus() {
 // LOCATION FLOW
 // ═══════════════════════════════════════════
 function startLocationFlow() {
-  if (!S.qrLocId) {
-    // No QR scanned — hard block
-    showScreen('noqr');
+  if (!S.selectedLoc) {
+    // Location not found — already redirected to noqr in loadLocationDetails
     return;
   }
-
-  var loc = S.locations.find(function(l) { return l.locationId === S.qrLocId; });
-  if (!loc) {
-    showScreen('noqr');
-    return;
-  }
-
-  S.selectedLoc = loc;
-  setBar('detecting', loc.locationName, 'Verifying your position…');
+  setBar('detecting', S.selectedLoc.locationName, 'Verifying your position…');
   getGPS();
 }
 
 function getGPS() {
   if (!navigator.geolocation) {
-    setBar('error', 'GPS Not Available', 'Your device does not support location');
+    setBar('error', S.selectedLoc ? S.selectedLoc.locationName : 'Error', 'GPS not available on this device');
     setBtn('blocked'); return;
   }
   navigator.geolocation.getCurrentPosition(
@@ -512,7 +387,7 @@ function getGPS() {
       var m = err.code === 1 ? 'Location permission denied. Please allow access.'
             : err.code === 2 ? 'Location unavailable. Try stepping outside.'
             : 'Location timed out. Try again.';
-      setBar('error', 'GPS Failed', m);
+      setBar('error', S.selectedLoc ? S.selectedLoc.locationName : 'Error', m);
       setBtn('blocked');
       toast(m, 'err');
     },
@@ -522,9 +397,10 @@ function getGPS() {
 
 function onGPS(lat, lng) {
   S.gps = { lat: lat, lng: lng };
-  if (!S.selectedLoc) { setBar('error', 'No center selected', ''); setBtn('blocked'); return; }
+  if (!S.selectedLoc) { setBtn('blocked'); return; }
 
-  api('validateLocation', { loc: S.selectedLoc.locationId, lat: lat, lng: lng, tenant: TENANT })
+  // Pass only loc — backend finds tenant automatically
+  api('validateLocation', { loc: S.selectedLoc.locationId, lat: lat, lng: lng })
     .then(function(d) {
       if (d.success) {
         S.gpsVerified = true;
@@ -533,12 +409,12 @@ function onGPS(lat, lng) {
       } else {
         S.gpsVerified = false;
         var dist = d.distance ? d.distance + 'm from center' : d.message;
-        setBar('error', 'Not at this center', dist);
+        setBar('error', S.selectedLoc.locationName, dist);
         setBtn('blocked');
         toast('You must be at ' + S.selectedLoc.locationName + ' to log time.', 'err');
       }
     }).catch(function() {
-      setBar('error', 'Verification failed', 'Check your connection');
+      setBar('error', S.selectedLoc.locationName, 'Verification failed. Check connection.');
       setBtn('blocked');
     });
 }
@@ -552,55 +428,57 @@ function activateBtn() {
     return;
   }
   S.btnReady = true;
-  var btn = el('logBtn'), lbl = el('btnLabel'), sub = el('btnSub'), ico = el('btnIcon');
+  var btn = el('logBtn');
   btn.disabled = false;
   if (S.nextAction === 'CHECK-IN') {
     btn.className = 'log-btn checkin';
-    lbl.textContent = 'CHECK IN'; sub.textContent = 'tap to log arrival';
-    ico.innerHTML = svgCheckin('#00C781');
+    el('btnLabel').textContent = 'CHECK IN';
+    el('btnSub').textContent   = 'tap to log arrival';
+    el('btnIcon').innerHTML    = svgCheckin('#00C781');
   } else {
     btn.className = 'log-btn checkout';
-    lbl.textContent = 'CHECK OUT'; sub.textContent = 'tap to log departure';
-    ico.innerHTML = svgCheckout('#FF5C5C');
+    el('btnLabel').textContent = 'CHECK OUT';
+    el('btnSub').textContent   = 'tap to log departure';
+    el('btnIcon').innerHTML    = svgCheckout('#FF5C5C');
   }
 }
 
 function setBtn(state) {
   S.btnReady = false;
-  var btn = el('logBtn'), lbl = el('btnLabel'), sub = el('btnSub'), ico = el('btnIcon');
+  var btn = el('logBtn');
   btn.disabled = true;
   if (state === 'loading') {
     btn.className = 'log-btn loading';
-    lbl.textContent = '—'; sub.textContent = 'logging…';
-    ico.innerHTML = '<div class="spinner"></div>';
+    el('btnLabel').textContent = '—';
+    el('btnSub').textContent   = 'logging…';
+    el('btnIcon').innerHTML    = '<div class="spinner"></div>';
   } else {
     btn.className = 'log-btn blocked';
-    lbl.textContent = S.nextAction === 'CHECK-IN' ? 'CHECK IN' : 'CHECK OUT';
-    sub.textContent = 'not verified';
-    ico.innerHTML = S.nextAction === 'CHECK-IN' ? svgCheckin('#444') : svgCheckout('#444');
+    el('btnLabel').textContent = S.nextAction === 'CHECK-IN' ? 'CHECK IN' : 'CHECK OUT';
+    el('btnSub').textContent   = 'not verified';
+    el('btnIcon').innerHTML    = S.nextAction === 'CHECK-IN' ? svgCheckin('#444') : svgCheckout('#444');
   }
 }
 
 function startCooldown(sec) {
   S.btnReady = false;
   if (S.cdTimer) clearInterval(S.cdTimer);
-  var btn = el('logBtn'), lbl = el('btnLabel'), sub = el('btnSub'), ico = el('btnIcon');
+  var btn = el('logBtn');
   btn.disabled = true; btn.className = 'log-btn cooldown';
-  lbl.textContent = 'WAIT';
+  el('btnLabel').textContent = 'WAIT';
   var rem = sec;
-  function tick() { sub.textContent = rem + 's'; ico.innerHTML = svgCooldown(rem); }
+  function tick() { el('btnSub').textContent = rem + 's'; el('btnIcon').innerHTML = svgCooldown(rem); }
   tick();
   S.cdTimer = setInterval(function() {
     rem--;
-    if (rem <= 0) {
-      clearInterval(S.cdTimer); S.cdTimer = null; S.cooldownEnd = 0;
-      activateBtn();
-    } else { tick(); }
+    if (rem <= 0) { clearInterval(S.cdTimer); S.cdTimer = null; S.cooldownEnd = 0; activateBtn(); }
+    else tick();
   }, 1000);
 }
 
 // ═══════════════════════════════════════════
 // TAP HANDLER
+// Pass loc — backend finds tenant automatically
 // ═══════════════════════════════════════════
 function handleTap() {
   if (!S.btnReady || !S.gpsVerified || !S.selectedLoc) return;
@@ -612,9 +490,8 @@ function handleTap() {
     lat:          S.gps.lat,
     lng:          S.gps.lng,
     loc:          S.selectedLoc.locationId,
-    locationName: S.selectedLoc.locationName,
-    verification: 'QR-GPS',
-    tenant:       TENANT
+    verification: 'QR-GPS'
+    // No tenant — backend auto-detects from loc
   }).then(function(d) {
     if (d.success) {
       var was = S.nextAction;
@@ -665,9 +542,10 @@ function goToMain() {
 
 // ═══════════════════════════════════════════
 // SESSIONS
+// Pass loc — backend finds tenant automatically
 // ═══════════════════════════════════════════
 function loadSessions() {
-  api('getLastLogs', { email: S.user.email, tenant: TENANT }).then(function(d) {
+  api('getLastLogs', { email: S.user.email, loc: S.qrLocId }).then(function(d) {
     renderSessions(d.sessions || []);
   }).catch(function() {
     el('sessionList').innerHTML = '<div class="history-empty">Could not load sessions.</div>';
@@ -677,33 +555,27 @@ function loadSessions() {
 function renderSessions(sessions) {
   var list = el('sessionList');
   if (!sessions.length) {
-    list.innerHTML = '<div class="history-empty">No sessions yet. Scan the QR code at your center to get started.</div>';
+    list.innerHTML = '<div class="history-empty">No sessions yet. Scan QR code at your center to get started.</div>';
     return;
   }
   list.innerHTML = sessions.map(function(s, i) {
     var badge = s.active
       ? '<span class="session-badge badge-active">● Active</span>'
-      : (s.checkoutReason || '').toUpperCase() === 'AUTO-9PM'
+      : (s.checkoutReason||'').toUpperCase() === 'AUTO-9PM'
         ? '<span class="session-badge badge-auto-9pm">Auto 9PM</span>'
-        : (s.checkoutReason || '').toUpperCase() === 'AUTO-NEW-CHECKIN'
+        : (s.checkoutReason||'').toUpperCase() === 'AUTO-NEW-CHECKIN'
           ? '<span class="session-badge badge-auto-new">Auto</span>'
           : '<span class="session-badge badge-manual">Manual</span>';
 
-    var inVal  = s.checkIn  ? '<span class="time-val green">' + esc(s.checkIn)  + '</span>'
-                            : '<span class="time-val muted">—</span>';
-    var outVal = s.checkOut ? '<span class="time-val muted">'  + esc(s.checkOut) + '</span>'
-                            : '<span class="time-val green">Active</span>';
+    var inVal  = s.checkIn  ? '<span class="time-val green">' + esc(s.checkIn)  + '</span>' : '<span class="time-val muted">—</span>';
+    var outVal = s.checkOut ? '<span class="time-val muted">' + esc(s.checkOut) + '</span>' : '<span class="time-val green">Active</span>';
+    var dur    = s.duration ? '<div class="session-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#666" stroke-width="1.2"><circle cx="6" cy="6" r="4.5"/><path d="M6 3.5V6l1.5 1" stroke-linecap="round"/></svg><div class="dur-text">' + esc(s.duration) + '</div></div>' : '';
 
-    var dur = s.duration
-      ? '<div class="session-dur"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#666" stroke-width="1.2"><circle cx="6" cy="6" r="4.5"/><path d="M6 3.5V6l1.5 1" stroke-linecap="round"/></svg><div class="dur-text">' + esc(s.duration) + '</div></div>'
-      : '';
-
-    return '<div class="session-card' + (s.active ? ' active-session' : '') + '" style="animation-delay:' + (i * 0.06) + 's">' +
-      '<div class="session-top"><div class="session-location">' + esc(s.locationName || 'Unknown') + '</div>' + badge + '</div>' +
-      '<div class="session-times">' +
-        '<div class="time-block"><div class="time-label">Check In</div>'  + inVal  + '</div>' +
-        '<div class="time-block"><div class="time-label">Check Out</div>' + outVal + '</div>' +
-      '</div>' + dur + '</div>';
+    return '<div class="session-card' + (s.active ? ' active-session' : '') + '" style="animation-delay:' + (i*0.06) + 's">'
+      + '<div class="session-top"><div class="session-location">' + esc(s.locationName||'Unknown') + '</div>' + badge + '</div>'
+      + '<div class="session-times"><div class="time-block"><div class="time-label">Check In</div>' + inVal + '</div>'
+      + '<div class="time-block"><div class="time-label">Check Out</div>' + outVal + '</div></div>'
+      + dur + '</div>';
   }).join('');
 }
 
@@ -711,10 +583,10 @@ function renderSessions(sessions) {
 // HELPERS
 // ═══════════════════════════════════════════
 function setBar(state, name, sub) {
-  el('locBar').className     = 'loc-bar ' + state;
-  el('locName').textContent  = name;
-  el('locSub').textContent   = sub || '';
-  el('locDot').className     = 'loc-dot ' + (state === 'verified' ? 'green' : state === 'error' ? 'red' : 'amber');
+  el('locBar').className    = 'loc-bar ' + state;
+  el('locName').textContent = name;
+  el('locSub').textContent  = sub || '';
+  el('locDot').className    = 'loc-dot ' + (state==='verified'?'green':state==='error'?'red':'amber');
 }
 
 function api(action, params) {
@@ -729,14 +601,14 @@ function api(action, params) {
 
 function showScreen(n) {
   document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
-  document.getElementById('s-' + n).classList.add('active');
+  el('s-' + n).classList.add('active');
 }
 
 function toast(msg, type) {
   var t = el('toast');
   t.textContent = msg;
-  t.className   = (type === 'err' ? 'err' : type === 'ok' ? 'ok' : '') + ' show';
-  setTimeout(function() { t.className = ''; }, 3500);
+  t.className = (type==='err'?'err':type==='ok'?'ok':'') + ' show';
+  setTimeout(function() { t.className=''; }, 3500);
 }
 
 function el(id) { return document.getElementById(id); }
@@ -744,7 +616,7 @@ function el(id) { return document.getElementById(id); }
 function parseJwt(tok) {
   var b = tok.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
   return JSON.parse(decodeURIComponent(atob(b).split('').map(function(c) {
-    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    return '%' + ('00'+c.charCodeAt(0).toString(16)).slice(-2);
   }).join('')));
 }
 
@@ -752,23 +624,20 @@ function mkInitials(n) { return n.split(' ').map(function(w){return w[0]}).slice
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function svgCheckin(c) {
-  return '<svg width="38" height="38" viewBox="0 0 38 38" fill="none">' +
-    '<circle cx="19" cy="19" r="13" stroke="' + c + '" stroke-width="1.5" stroke-dasharray="4 2.5"/>' +
-    '<path d="M19 13v6l4 2" stroke="' + c + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '<circle cx="19" cy="19" r="2.5" fill="' + c + '"/>' +
-    '</svg>';
+  return '<svg width="38" height="38" viewBox="0 0 38 38" fill="none">'
+    + '<circle cx="19" cy="19" r="13" stroke="'+c+'" stroke-width="1.5" stroke-dasharray="4 2.5"/>'
+    + '<path d="M19 13v6l4 2" stroke="'+c+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+    + '<circle cx="19" cy="19" r="2.5" fill="'+c+'"/></svg>';
 }
 function svgCheckout(c) {
-  return '<svg width="38" height="38" viewBox="0 0 38 38" fill="none">' +
-    '<circle cx="19" cy="19" r="13" stroke="' + c + '" stroke-width="1.5"/>' +
-    '<path d="M14 19h10M20 15l4 4-4 4" stroke="' + c + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
-    '</svg>';
+  return '<svg width="38" height="38" viewBox="0 0 38 38" fill="none">'
+    + '<circle cx="19" cy="19" r="13" stroke="'+c+'" stroke-width="1.5"/>'
+    + '<path d="M14 19h10M20 15l4 4-4 4" stroke="'+c+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 }
 function svgCooldown(sec) {
-  return '<svg width="38" height="38" viewBox="0 0 38 38" fill="none">' +
-    '<circle cx="19" cy="19" r="13" stroke="#FFB347" stroke-width="1.5"/>' +
-    '<text x="19" y="24" text-anchor="middle" font-size="13" font-weight="600" fill="#FFB347" font-family="DM Mono,monospace">' + sec + '</text>' +
-    '</svg>';
+  return '<svg width="38" height="38" viewBox="0 0 38 38" fill="none">'
+    + '<circle cx="19" cy="19" r="13" stroke="#FFB347" stroke-width="1.5"/>'
+    + '<text x="19" y="24" text-anchor="middle" font-size="13" font-weight="600" fill="#FFB347" font-family="DM Mono,monospace">'+sec+'</text></svg>';
 }
 </script>
 </body>
