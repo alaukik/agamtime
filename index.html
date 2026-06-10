@@ -262,7 +262,7 @@ window.onload = function() {
   S.qrLocId = new URLSearchParams(window.location.search).get('loc');
 
   try {
-    var saved = sessionStorage.getItem('agamtime_user');
+    var saved = localStorage.getItem('agamtime_user');
     if (saved) { S.user = JSON.parse(saved); initMain(); return; }
   } catch(e) {}
 
@@ -290,14 +290,14 @@ function onSignIn(resp) {
   try {
     var p = parseJwt(resp.credential);
     S.user = { email: p.email, name: p.name, picture: p.picture, initials: mkInitials(p.name) };
-    sessionStorage.setItem('agamtime_user', JSON.stringify(S.user));
+    localStorage.setItem('agamtime_user', JSON.stringify(S.user));
     initMain();
   } catch(e) { toast('Sign-in failed. Try again.', 'err'); }
 }
 
 function confirmSignOut() {
   if (!confirm('Sign out of AGAMTime?')) return;
-  sessionStorage.removeItem('agamtime_user');
+  localStorage.removeItem('agamtime_user');
   S.user = null;
   google.accounts.id.disableAutoSelect();
   showScreen('login');
